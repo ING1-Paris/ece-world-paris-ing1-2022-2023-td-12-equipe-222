@@ -1,0 +1,3 @@
+C:/Users/diden/CLionPojects/ECE_WORLD17/cmake-build-debug/CMakeFiles/ECE_WORLD17.dir
+C:/Users/diden/CLionPojects/ECE_WORLD17/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/diden/CLionPojects/ECE_WORLD17/cmake-build-debug/CMakeFiles/rebuild_cache.dir
