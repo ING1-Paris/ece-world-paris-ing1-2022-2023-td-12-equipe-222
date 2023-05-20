@@ -1,0 +1,188 @@
+The system is: Linux - 5.15.49-linuxkit - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/3.13.4/CompilerIdC/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ff1dc/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ff1dc.dir/build.make CMakeFiles/cmTC_ff1dc.dir/build
+make[1]: Entering directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ff1dc.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_ff1dc.dir/testCCompiler.c.o   -c /tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_ff1dc
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ff1dc.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_ff1dc.dir/testCCompiler.c.o  -o cmTC_ff1dc 
+make[1]: Leaving directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp'
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_bc004/fast"
+/usr/bin/make -f CMakeFiles/cmTC_bc004.dir/build.make CMakeFiles/cmTC_bc004.dir/build
+make[1]: Entering directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bc004.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_bc004.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.13/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_bc004
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bc004.dir/link.txt --verbose=1
+/usr/bin/cc     -v CMakeFiles/cmTC_bc004.dir/CMakeCCompilerABI.c.o  -o cmTC_bc004 
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: /usr/src/gcc/configure --build=x86_64-linux-gnu --disable-multilib --enable-languages=c,c++,fortran,go
+Thread model: posix
+gcc version 9.5.0 (GCC) 
+COMPILER_PATH=/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/:/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/:/usr/local/libexec/gcc/x86_64-linux-gnu/:/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/:/usr/local/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/:/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../../../lib64/:/lib/x86_64-linux-gnu/:/lib/../lib64/:/usr/lib/x86_64-linux-gnu/:/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_bc004' '-mtune=generic' '-march=x86-64'
+ /usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/collect2 -plugin /usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/liblto_plugin.so -plugin-opt=/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccocerWl.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_bc004 /usr/lib/x86_64-linux-gnu/crt1.o /usr/lib/x86_64-linux-gnu/crti.o /usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/crtbegin.o -L/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0 -L/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../../../lib64 -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../.. CMakeFiles/cmTC_bc004.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/crtend.o /usr/lib/x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_bc004' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp'
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_bc004/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_bc004.dir/build.make CMakeFiles/cmTC_bc004.dir/build]
+  ignore line: [make[1]: Entering directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_bc004.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_bc004.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.13/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_bc004]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bc004.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v CMakeFiles/cmTC_bc004.dir/CMakeCCompilerABI.c.o  -o cmTC_bc004 ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/lto-wrapper]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: /usr/src/gcc/configure --build=x86_64-linux-gnu --disable-multilib --enable-languages=c,c++,fortran,go]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 9.5.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/:/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/:/usr/local/libexec/gcc/x86_64-linux-gnu/:/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/:/usr/local/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/:/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../../../lib64/:/lib/x86_64-linux-gnu/:/lib/../lib64/:/usr/lib/x86_64-linux-gnu/:/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_bc004' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/collect2 -plugin /usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/liblto_plugin.so -plugin-opt=/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccocerWl.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_bc004 /usr/lib/x86_64-linux-gnu/crt1.o /usr/lib/x86_64-linux-gnu/crti.o /usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/crtbegin.o -L/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0 -L/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../../../lib64 -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../.. CMakeFiles/cmTC_bc004.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/crtend.o /usr/lib/x86_64-linux-gnu/crtn.o]
+    arg [/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/local/libexec/gcc/x86_64-linux-gnu/9.5.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccocerWl.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_bc004] ==> ignore
+    arg [/usr/lib/x86_64-linux-gnu/crt1.o] ==> ignore
+    arg [/usr/lib/x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/crtbegin.o] ==> ignore
+    arg [-L/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0] ==> dir [/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0]
+    arg [-L/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../../../lib64] ==> dir [/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../../../lib64]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../..] ==> dir [/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../..]
+    arg [CMakeFiles/cmTC_bc004.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--push-state] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--pop-state] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--push-state] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--pop-state] ==> ignore
+    arg [/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/crtend.o] ==> ignore
+    arg [/usr/lib/x86_64-linux-gnu/crtn.o] ==> ignore
+  collapse library dir [/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0] ==> [/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0]
+  collapse library dir [/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../../../lib64] ==> [/usr/local/lib64]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib64] ==> [/lib64]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0/../../..] ==> [/usr/local/lib]
+  implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+  implicit dirs: [/usr/local/lib/gcc/x86_64-linux-gnu/9.5.0;/usr/local/lib64;/lib/x86_64-linux-gnu;/lib64;/usr/lib/x86_64-linux-gnu;/usr/local/lib]
+  implicit fwks: []
+
+
+
+
+Detecting C [-std=c11] compiler features compiled with the following output:
+Change Dir: /tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b43cf/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b43cf.dir/build.make CMakeFiles/cmTC_b43cf.dir/build
+make[1]: Entering directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b43cf.dir/feature_tests.c.o
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_b43cf.dir/feature_tests.c.o   -c /tmp/ece_world/cmake-build-debug-docker/CMakeFiles/feature_tests.c
+Linking C executable cmTC_b43cf
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b43cf.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_b43cf.dir/feature_tests.c.o  -o cmTC_b43cf 
+make[1]: Leaving directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:1c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c99] compiler features compiled with the following output:
+Change Dir: /tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_183d5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_183d5.dir/build.make CMakeFiles/cmTC_183d5.dir/build
+make[1]: Entering directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_183d5.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_183d5.dir/feature_tests.c.o   -c /tmp/ece_world/cmake-build-debug-docker/CMakeFiles/feature_tests.c
+Linking C executable cmTC_183d5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_183d5.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_183d5.dir/feature_tests.c.o  -o cmTC_183d5 
+make[1]: Leaving directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c90] compiler features compiled with the following output:
+Change Dir: /tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_14c96/fast"
+/usr/bin/make -f CMakeFiles/cmTC_14c96.dir/build.make CMakeFiles/cmTC_14c96.dir/build
+make[1]: Entering directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_14c96.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_14c96.dir/feature_tests.c.o   -c /tmp/ece_world/cmake-build-debug-docker/CMakeFiles/feature_tests.c
+Linking C executable cmTC_14c96
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_14c96.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_14c96.dir/feature_tests.c.o  -o cmTC_14c96 
+make[1]: Leaving directory '/tmp/ece_world/cmake-build-debug-docker/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:0c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:0c_variadic_macros

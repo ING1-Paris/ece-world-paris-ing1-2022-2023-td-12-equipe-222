@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/tmp/ece_world/main.c
+allegro.h
+-
+stdio.h
+-
+math.h
+-
+time.h
+-
+stdlib.h
+-
+

@@ -1,0 +1,1 @@
+/usr/bin/cc -L/usr/local/lib -lalleg -g   CMakeFiles/ece_world.dir/main.c.o  -o ece_world 

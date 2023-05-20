@@ -1,0 +1,3 @@
+/Users/shaili/Desktop/ece_world/cmake-build-debug/CMakeFiles/ece_world.dir
+/Users/shaili/Desktop/ece_world/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/shaili/Desktop/ece_world/cmake-build-debug/CMakeFiles/rebuild_cache.dir
