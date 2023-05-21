@@ -5,14 +5,13 @@
 
 #define LARGEUR 1500
 #define HAUTEUR 800
-//#define TAILLE_TEXTE 32
 
 #define MAX_IMAGES_CHEVAL 6
 #define NOMBRE_DE_CHEVAUX 5
 #define NBR_BACKGROUND 3
 #define NBR_JOUEURS 2
 
-
+// definition des structures 
 typedef struct {
     int choix;
     bool achoisi;
@@ -36,13 +35,17 @@ typedef struct {
     int numeroCheval;
 } Rectangle;
 
+//sous programme pour initialiser allegro 
 void initialisationAllegro();
+
+//sous programme pour télécharger les backgrounds
 void telechargementBackground();
 
 
 BITMAP *imageChargee[NBR_BACKGROUND];
 BITMAP *background_Actuel;
 
+//sous programme pour alterner entre les backgrounds
 void switchBackground(int key)
 {
     if (key == KEY_1)
@@ -51,7 +54,7 @@ void switchBackground(int key)
         background_Actuel = imageChargee[1];
 }
 
-
+//programme principal
 int main() {
     initialisationAllegro();
     install_keyboard();
@@ -71,7 +74,7 @@ int main() {
     show_mouse(screen);
 
     char nomfichier1[20];
-
+//téléchargement images backgrounds 
     for (int i = 0; i < NBR_BACKGROUND; i ++){
         sprintf (nomfichier1, "../ECEWORLD/Background%d.bmp", i+1);
         imageChargee[i]=load_bitmap(nomfichier1, NULL);
@@ -82,14 +85,15 @@ int main() {
             exit(EXIT_FAILURE);
         }
     }
-
+// création du buffer 
     buffer = create_bitmap(LARGEUR,HAUTEUR);
     if (!buffer) {
         allegro_message("Pb création buffer");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-
+    
+//téléchargement sprites des chevaux : 5 chevaux différents avec 6 images chacun 
     char nomfichier2[20];
     Cheval cheval[NOMBRE_DE_CHEVAUX];
 
@@ -148,6 +152,8 @@ int main() {
         }
     }
 
+    //initialisation position de départ et vitesse aléatoire
+    
     for (int j = 0; j < NOMBRE_DE_CHEVAUX; j ++){
         cheval[j].dx = rand() % 15 + 20;
     }
@@ -160,11 +166,7 @@ int main() {
         cheval[j].y = (j+1)*90 + 115;
     }
 
-    Background piste;
-
-    piste.x = 0;
-    piste.y = 0;
-
+ 
     Rectangle rectangles[NOMBRE_DE_CHEVAUX];
 
     Joueur joueur[NBR_JOUEURS];
@@ -172,15 +174,13 @@ int main() {
     int compteur = 0;
     int gagnant = 1;
 
-    time_t tempsDebut;
-    tempsDebut = time(NULL);
-
     bool clic = false;
 
     background_Actuel = imageChargee[2];
 
-    char nomfichier_pres[20];
+    char nomfichier_pres[100];
 
+    
  for (int i = 0; i < NOMBRE_DE_CHEVAUX; i++) {
      sprintf(nomfichier_pres,"../ECEWORLD/cheval%d.bmp", i+1);
      sprite_presentation[i] = load_bitmap(nomfichier_pres, NULL);
@@ -192,9 +192,6 @@ int main() {
      }
  }
 
-
-    //joueur[0].choix = 0;
-    //joueur[1].choix = 0;
 
     for (int i = 0; i < NBR_JOUEURS; i++) {
         joueur[i].choix = -1;
@@ -212,14 +209,12 @@ int main() {
         clear_bitmap(buffer);
 
 
-
         blit(imageChargee[1], buffer, 0, 0, 0, 0, imageChargee[1]->w, imageChargee[1]->h);
         for (int i = 0; i < NBR_JOUEURS; i ++){
-            //textprintf_ex(buffer, font, 300, 120, makecol(200, 0, 10), -1, "Joueur %d à vous de choisir !", i+1);
+          
         }
 
-        //textprintf_ex(buffer, font, 300, 100, makecol(0, 200, 10), -1, "souris.x : %d  et souris.y : %d", mouse_x, mouse_y);
-
+     // dessin des rectangles d'encadrements des chevaux pour pouvoir les selectionner dans le but de parier
         rectangles[0].x1 = 87;
         rectangles[0].y1 = 180;
         rectangles[0].x2 = 411;
@@ -256,7 +251,7 @@ int main() {
         rect(buffer, rectangles[3].x1, rectangles[3].y1, rectangles[3].x2, rectangles[3].y2, makecol(255, 0, 0));
         rect(buffer, rectangles[4].x1, rectangles[4].y1, rectangles[4].x2, rectangles[4].y2, makecol(255, 0, 0));
 
-
+// lorsque qu'un joueur clique sur le cheval de son choix, c'est à l'autre d'enchainer 
         if (mouse_b & 1 && !clic) {
             int mouseX = mouse_x;
             int mouseY = mouse_y;
@@ -283,7 +278,7 @@ int main() {
                 switchBackground(KEY_1);
 
                 blit(imageChargee[2], buffer, 0, 0, 0, 0, imageChargee[2]->w, imageChargee[2]->h);
-
+// affichage de l'ecran recapitulatif des paris des joueurs avec affichage des images des sprites
                 textprintf_ex(buffer, font, 240, 250, makecol(255, 255, 255), -1, "Joueur 1 a parie pour le cheval numero %d", joueur[0].choix);
                 if (joueur[0].choix == 1){
                     draw_sprite(buffer, sprite_presentation[0],150 , 320);
@@ -323,12 +318,12 @@ int main() {
                      draw_sprite(buffer, sprite_presentation[4],850, 320);
                     textprintf_ex(buffer, font, 1060, 340, makecol(255, 255, 255), -1, " %s", cheval[4].nom);
                 }
-                //textprintf_ex(buffer, font, 600, 50, makecol(255, 255, 255), -1, "Maintenir ENTRER pour lancer la course");
+            
             }
         }
 
 
-
+// lancement de la course
 
         if (key[KEY_2]){
             switchBackground(KEY_2);
@@ -354,9 +349,9 @@ int main() {
                     cheval[i].dx = 0;
                 }
             }
-
+// Affiche le numéro du cheval gagnant en gros sur l'écran
             if (gagnant != 1) {
-                // Affiche le numéro du cheval gagnant en gros sur l'écran
+
                 textprintf_ex(buffer, font, 630, 150, makecol(400, 10, 300), -1, "LE CHEVAL %d A GAGNE LA COURSE", gagnant + 1);
                 if (gagnant + 1 == joueur[0].choix){
                     textprintf_ex(buffer, font, 630, 110, makecol(400, 10, 300), -1, "Joueur 1 a gagne son pari");
@@ -365,32 +360,19 @@ int main() {
                 }else if ((gagnant + 1 != joueur[0].choix) && (gagnant + 1 != joueur[1].choix)){
                     textprintf_ex(buffer, font, 630, 100, makecol(400, 10, 300), -1, " Les deux joueurs ont perdu leur pari");
                 }
-              //  for (int i = 0; i < NOMBRE_DE_CHEVAUX; i++) {
-
-                //    cheval[i].dx = 0;
-                //}
+              
             }
         }
 
-
-        //    } else if (background_Actuel == 3) {
-
-
-
-        time_t tempsActuel = time(NULL);
-        int tempsEcoule = tempsActuel - tempsDebut;
-
-        // Affichage du temps écoulé en haut à droite
-        textprintf_right_ex(buffer, font, LARGEUR - 10, 10, makecol(255, 255, 255), -1, "Temps: %d secondes", tempsEcoule);
-
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-
-        rest(120);  // Attendre un court instant pour contrôler la vitesse d'animation
+// contrôler la vitesse d'animation en mettant un temps de latence 
+        rest(100);  
 
         compteur = (compteur + 1) % MAX_IMAGES_CHEVAL;
 
     }
 
+    // destruction des bitmaps
     destroy_bitmap(buffer);
     for (int i = 0; i < NBR_BACKGROUND; i ++){
         destroy_bitmap(imageChargee[i]);
@@ -416,4 +398,5 @@ void initialisationAllegro() {
         allegro_exit();
         exit(EXIT_FAILURE);
     }
+       set_window_title("Course Hippiques");
 }
