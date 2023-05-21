@@ -7,6 +7,8 @@
 #define NBR_CROCO_DROITE 4
 #define NBR_CROCO_GAUCHE 3
 
+
+// definition des structures 
 typedef struct {
     int x;
     int y;
@@ -18,7 +20,7 @@ typedef struct {
     int y1, y2;
 } Rectangle;
 
-
+// sous programmes pour initialiser allegro
 void initialisationAllegro();
 
 
@@ -35,8 +37,8 @@ int main() {
     BITMAP * background[2];
     BITMAP * buffer;
 
-    int nbr_croco_droite = 9;
-
+    int nbr_croco_droite = 4;
+// chargement images des crocodiles 
     for (int i = 0; i < nbr_croco_droite; i ++){
         imagecroco_droite [i]= load_bitmap("../1ECEWORLD/crocodile1.bmp", NULL);
         if (!imagecroco_droite[i]){
@@ -73,7 +75,7 @@ int main() {
         }
     }
 
-
+// chargement images des fantomes animés
     BITMAP* bas;
     BITMAP* gauche;
     BITMAP* droite;
@@ -132,13 +134,15 @@ int main() {
     BITMAP *image_fantome1 = bas;
     BITMAP *image_fantome2 = bas1;
 
+    //position initiale des deux fantomes
     draw_sprite(buffer, image_fantome1, position_x, position_y);
     draw_sprite(buffer, image_fantome2, position_x1, position_y1);
 
     Crocodile croco_gauche [4][3];
     Crocodile croco_droite [4][2];
 
-
+// initialisation des vitesse des crocodiles et de leur position en abscisses aléatoire et en y défini afin de faire des rangées
+    
     for (int i = 0; i < NBR_CROCO_DROITE; i++ ){
         croco_droite[i][0].x = rand()% 1500 + rand() % 1000 * i;
         croco_droite[i][0].y = 300 + i*50*2;
@@ -169,6 +173,7 @@ int main() {
         croco_gauche[j][2].dx = 10;
     }
 
+// création du rectangle qui représente l'eau 
     Rectangle rectangles;
     rectangles.x1 = 0;
     rectangles.y1 = 301;
@@ -177,7 +182,8 @@ int main() {
 
     int fin_partie1 = 0;
     int fin_partie2 = 0;
-
+    
+// boucle de jeu principal
     while (!key[KEY_ESC]){
 
             clear_bitmap(buffer);
@@ -187,7 +193,7 @@ int main() {
 
             textprintf_ex(buffer, font, 500, 210, makecol(255, 255, 255), -1, "Maintenir la touche ESPACE pour connaitre les regles du jeu");
 
-
+// affichage des crocodiles en fonctions de leurs rangées 
             for (int i = 0; i < NBR_CROCO_DROITE; i ++ ){
                 draw_sprite(buffer, imagecroco_droite[i], croco_droite[i][0].x, croco_droite[i][0].y);
                 rect(buffer,croco_droite[i][0].x, croco_droite[i][0].y, croco_droite[i][0].x + 262, croco_droite[i][0].y + 50,
@@ -198,7 +204,7 @@ int main() {
                 }
             }
 
-
+// definir que la vitesse et le sens de direction du crocodile devient celle du fantôme qui est au dessus de lui 
             for (int i = 0; i < NBR_CROCO_DROITE; i ++){
                 if (position_x >= rectangles.x1 && position_x <= rectangles.x2 && position_y >= rectangles.y1 && position_y <=rectangles.y2 ){
                     if (position_x >= croco_droite[i][0].x && position_x <= croco_droite[i][0].x + 300 &&
@@ -291,7 +297,7 @@ int main() {
             }
 
 
-
+// condition qui verifie si le fantome est sur un crocodile, s'il n'est pas dessus alors il a perdu 
             if (position_x >= rectangles.x1 && position_x <= rectangles.x2 && position_y >= rectangles.y1 && position_y <= rectangles.y2) {
                 if ((position_x >= croco_droite[0][0].x && position_x <= croco_droite[0][0].x + 300 && position_y >= croco_droite[0][0].y && position_y <= croco_droite[0][0].y + 50)||
                     (position_x >= croco_droite[1][0].x && position_x <= croco_droite[1][0].x + 300 && position_y >= croco_droite[1][0].y && position_y <= croco_droite[1][0].y + 50)||
@@ -314,7 +320,7 @@ int main() {
                 }
             }
 
-
+// même condition pour le deuxieme fantôme 
             if (position_x1 >= rectangles.x1 && position_x1 <= rectangles.x2 && position_y1 >= rectangles.y1 && position_y1 <= rectangles.y2) {
                 if ((position_x1 >= croco_droite[0][0].x && position_x1 <= croco_droite[0][0].x + 300 && position_y1 >= croco_droite[0][0].y && position_y1 <= croco_droite[0][0].y + 50)||
                     (position_x1 >= croco_droite[1][0].x && position_x1 <= croco_droite[1][0].x + 300 && position_y1 >= croco_droite[1][0].y && position_y1 <= croco_droite[1][0].y + 50)||
@@ -337,6 +343,7 @@ int main() {
                 }
             }
 
+ // déplacement des joueurs en fonction des touches indiquées sur l'écran d'affichage des regles 
             if (key[KEY_LEFT] && position_x > -100) {
                 position_x -= 50;
                 image_fantome1 = gauche;
@@ -385,7 +392,7 @@ int main() {
             if ( position_x1 >= 1460 || position_x1 < 0 ){
                 fin_partie2 = 1;
             }
-
+// conditions de fin de parties, les joueurs retournent à leurs place et ne peuvent plus bouger, si les deux perdent le jeu s'arrête
             if (fin_partie1 == 1) {
                 textprintf_ex(buffer, font, 700, 250, makecol(255, 0, 0), -1, "Joueur 2 a perdu");
                 position_x = 800;
@@ -400,7 +407,7 @@ int main() {
             allegro_message("Les deux joueurs ont perdu, fin du jeux");
             return 1;
         }
-
+// dessin des rectangles autour des joueurs pour faciliter la jouabilité
             rect(buffer, position_x -2, position_y , position_x + 42, position_y+50, makecol(255,255,255));
             rect(buffer, position_x1 -2, position_y1 -2 , position_x1 + 40, position_y1+50, makecol(255,255,255));
             draw_sprite(buffer, image_fantome2,position_x1, position_y1);
@@ -414,7 +421,7 @@ int main() {
 
 
     }
-
+// destruction des BITMAPS 
     destroy_bitmap(buffer);
     for (int i = 0; i < NBR_CROCO_DROITE; i ++){
         destroy_bitmap(imagecroco_droite[i]);
