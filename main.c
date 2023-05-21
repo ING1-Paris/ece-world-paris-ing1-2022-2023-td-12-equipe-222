@@ -1,10 +1,17 @@
-/*
+
 #include <allegro.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define SCREEN_W 768
 #define SCREEN_H 632
+
+struct Joueurs{
+        char nom[10];
+        int ticket;
+};
+struct Joueurs joueur[2];
 
 int main(){
     BITMAP *page = NULL ; // BITMAP de la page (double buffer)
@@ -32,10 +39,23 @@ int main(){
     }
 
     // Charger un fond
-    BITMAP *carte = load_bitmap("cartedujeu_negate"
-                                ".bmp", NULL);
+    BITMAP *carte = load_bitmap("cartedujeu_negate.bmp", NULL);
     if (!carte) {
         allegro_message("prb chargement image");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+
+    //BITMAP VAINQUEUR
+    BITMAP *vainqueur1 = load_bitmap("vainqueur1.bmp", NULL);
+    if (!vainqueur1) {
+        allegro_message("prb chargement image quitte");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    BITMAP *vainqueur2 = load_bitmap("vainqueur2.bmp", NULL);
+    if (!vainqueur2){
+        allegro_message("prb chargement image quitte");
         allegro_exit();
         exit(EXIT_FAILURE);
     }
@@ -85,6 +105,12 @@ int main(){
         allegro_message("impossible de charger l'image4");
         return 1;
     }
+
+    // Demander les pseudos des joueurs
+    allegro_message("Entrez le pseudo du joueur 1 :");
+    scanf("%s",joueur[1].nom);
+    allegro_message("Entrez le pseudo du joueur 2 :");
+    scanf("%s",joueur[2].nom);
 
     ////////////////////
     ///INITIALISATION///
@@ -217,24 +243,25 @@ int main(){
     int mur22_y = 380;
     int mur22_h = 1;
     int mur22_w = 140;
-    
 
-    // Définir la zone de collision de la maison
+
+    // Definir la zone de collision de la maison
     int maison1_x = 296;  // position x de la maison
     int maison1_y = 280;  // position y de la maison
-    int maison2_x = 360;  
-    int maison2_y = 380;  
-    int maison3_x = 200;  
-    int maison3_y = 173;  
-    int maison4_x = 408; 
-    int maison4_y = 185;  
-    int maison5_x = 536;  
-    int maison5_y = 328;  
-    int maison_w = 15;   
+    int maison2_x = 360;
+    int maison2_y = 380;
+    int maison3_x = 200;
+    int maison3_y = 173;
+    int maison4_x = 408;
+    int maison4_y = 185;
+    int maison5_x = 536;
+    int maison5_y = 328;
+    int maison_w = 15;
     int maison_h = 15;
-    int spawn_x = 150;
-    int spawn_y = 484;
+    int spawn_x = 130;
+    int spawn_y = 450;
 
+    joueur[1].ticket=joueur[2].ticket =5;
 
     BITMAP *im1 = im1_down; // image initiale du poisson
     draw_sprite(page, im1, x1, y1);
@@ -256,68 +283,187 @@ int main(){
         if ((x1 + im1->w > maison1_x && x1 < maison1_x + maison_w && y1 + im1->h > maison1_y && y1 < maison1_y + maison_h)
         ||(x2 + im2->w > maison1_x && x2 < maison1_x + maison_w && y2 + im2->h > maison1_y && y2 < maison1_y + maison_h)) {
             // Collision détectée, appeler la fonction JEU1()
-            allegro_message("LANCEMENT DU JEU1");
-            destroy_bitmap(page);
+            allegro_message("LANCEMENT DU JEU : LA PECHE AU CANARD");
+            allegro_message("Au tour de %s de jouer",joueur[1].nom);
             allegro_exit();
-            return 1;
+            jeupeche();
+            allegro_message("Au tour de %s de jouer",joueur[2].nom);
+            allegro_exit();
+            jeupeche();
+            show_mouse(screen);
+            blit(vainqueur1, screen, 0, 0, 160, 269, SCREEN_W, SCREEN_H);
+            rest(4000);
+            //joueur 1 vainqueur
+            if ((mouse_b & 1) && (mouse_x > 0) && (mouse_x < 285) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[1].ticket++;
+            }
+                //joueur 2 vainquer
+            else if ((mouse_b & 1) && (mouse_x > 285) && (mouse_x < 470) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[2].ticket++;
+            }
+                //egalite
+            else if ((mouse_b & 1) && (mouse_x > 270) && (mouse_x < SCREEN_W) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[1].ticket+=0;
+                joueur[2].ticket+=0;
+            }
+            y1 += 3;
+            im1 = im1_down;
+            y2 += 3;
+            im2 = im2_down;
+            (joueur[1].ticket -=1) && (joueur[2].ticket-=1);
         }
 
         //COLLISION MAISON 2
         if ((x1 + im1->w > maison2_x && x1 < maison2_x + maison_w && y1 + im1->h > maison2_y && y1 < maison2_y + maison_h)
             ||(x2 + im2->w > maison2_x && x2 < maison2_x + maison_w && y2 + im2->h > maison2_y && y2 < maison2_y + maison_h)) {
             // Collision détectée, appeler la fonction JEU1()
-            allegro_message("LANCEMENT DU JEU2");
-            destroy_bitmap(page);
-            allegro_exit();
-            return 1;
+            allegro_message("LANCEMENT DU JEU : PARIS HIPPIQUES !");
+            allegro_message("sous prog");
+            show_mouse(screen);
+            blit(vainqueur2, screen, 0, 0, 160, 269, SCREEN_W, SCREEN_H);
+            rest(4000);
+            //joueur 1 vainqueur
+            if ((mouse_b & 1) && (mouse_x > 0) && (mouse_x < 240) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur2);
+                joueur[1].ticket++;
+            }
+                //joueur 2 vainquer
+            else if ((mouse_b & 1) && (mouse_x > 240) && (mouse_x < 370) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur2);
+                joueur[2].ticket++;
+            }
+                //LES DEUX
+            else if ((mouse_b & 1) && (mouse_x > 370) && (mouse_x < 500) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur2);
+                joueur[1].ticket += 1;
+                joueur[2].ticket += 1;
+            }
+                //LES DEUX
+            else if ((mouse_b & 1) && (mouse_x > 500) && (mouse_x < SCREEN_W) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur2);
+                joueur[1].ticket+=0;
+                joueur[2].ticket+=0;
+            }
+            y1 += 3;
+            im1 = im1_down;
+            y2 += 3;
+            im2 = im2_down;
+            (joueur[1].ticket -=1) && (joueur[2].ticket-=1);
         }
 
         //COLLISION MAISON 3
         if ((x1 + im1->w > maison3_x && x1 < maison3_x + maison_w && y1 + im1->h > maison3_y && y1 < maison3_y + maison_h)
             ||(x2 + im2->w > maison3_x && x2 < maison3_x + maison_w && y2 + im2->h > maison3_y && y2 < maison3_y + maison_h)) {
             // Collision détectée, appeler la fonction JEU1()
-            allegro_message("LANCEMENT DU JEU3");
-            destroy_bitmap(page);
+            allegro_message("LANCEMENT DU JEU : FANTOME LA !");
+            allegro_message("Au tour de %s de jouer",joueur[1].nom);
             allegro_exit();
-            return 1;
+            jeufantomela();
+            allegro_message("Au tour de %s de jouer",joueur[2].nom);
+            allegro_exit();
+            jeufantomela();
+            show_mouse(screen);
+            blit(vainqueur1, screen, 0, 0, 160, 269, SCREEN_W, SCREEN_H);
+            rest(4000);
+            //joueur 1 vainqueur
+            if ((mouse_b & 1) && (mouse_x > 0) && (mouse_x < 285) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[1].ticket++;
+            }
+                //joueur 2 vainquer
+            else if ((mouse_b & 1) && (mouse_x > 285) && (mouse_x < 470) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[2].ticket++;
+            }
+                //egalite
+            else if ((mouse_b & 1) && (mouse_x > 270) && (mouse_x < SCREEN_W) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[1].ticket+=0;
+                joueur[2].ticket+=0;
+            }
+            y1 += 3;
+            im1 = im1_down;
+            y2 += 3;
+            im2 = im2_down;
+            (joueur[1].ticket -=1) && (joueur[2].ticket-=1);
         }
 
         //COLLISION MAISON 4
         if ((x1 + im1->w > maison4_x && x1 < maison4_x + maison_w && y1 + im1->h > maison4_y && y1 < maison4_y + maison_h)
              ||(x2 + im2->w > maison4_x && x2 < maison4_x + maison_w && y2 + im2->h > maison4_y && y2 < maison4_y + maison_h)) {
             // Collision détectée, appeler la fonction JEU1()
-            allegro_message("LANCEMENT DU JEU4");
-            destroy_bitmap(page);
+            allegro_message("LANCEMENT DU JEU : TIR AU BALLONS !");
+            allegro_message("Au tour de %s de jouer",joueur[1].nom);
             allegro_exit();
-            return 1;
+            jeuballon();
+            allegro_message("Au tour de %s de jouer",joueur[2].nom);
+            allegro_exit();
+            jeuballon();
+            show_mouse(screen);
+            blit(vainqueur1, screen, 0, 0, 160, 269, SCREEN_W, SCREEN_H);
+            rest(4000);
+            //joueur 1 vainqueur
+            if ((mouse_b & 1) && (mouse_x > 0) && (mouse_x < 285) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[1].ticket++;
+            }
+                //joueur 2 vainquer
+            else if ((mouse_b & 1) && (mouse_x > 285) && (mouse_x < 470) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[2].ticket++;
+            }
+                //egalite
+            else if ((mouse_b & 1) && (mouse_x > 270) && (mouse_x < SCREEN_W) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[1].ticket+=0;
+                joueur[2].ticket+=0;
+            }
+            y1 += 3;
+            im1 = im1_down;
+            y2 += 3;
+            im2 = im2_down;
+            (joueur[1].ticket -=1) && (joueur[2].ticket-=1);
         }
 
         //COLLISION MAISON 5
         if ((x1 + im1->w > maison5_x && x1 < maison5_x + maison_w && y1 + im1->h > maison5_y && y1 < maison5_y + maison_h)
             ||(x2 + im2->w > maison5_x && x2 < maison5_x + maison_w && y2 + im2->h > maison5_y && y2 < maison5_y + maison_h)) {
             // Collision détectée, appeler la fonction JEU1()
-            allegro_message("LANCEMENT DU JEU5");
-            destroy_bitmap(page);
+            allegro_message("LANCEMENT DU JEU : TRAVERSEE DE RIVIERE !");
+            allegro_message("Au tour de %s de jouer",joueur[1].nom);
             allegro_exit();
-            return 1;
-        }
-
-        //COLLISION SPAWN
-        /*
-        if ((x1 + im1->w > spawn_x && x1 < spawn_x + maison_w && y1 + im1->h > spawn_y && y1 < spawn_y + maison_h)
-            ||(x2 + im2->w > spawn_x && x2 < spawn_x + maison_w && y2 + im2->h > spawn_y && y2 < spawn_y + maison_h)){
-            // Collision détectée, appeler la fonction JEU1()
-            char key;
-            key = allegro_message("Voulez-vous rentrer dans la maison ?\n\n[Y] Oui    [N] Non");
-            if (key == 'y' || key == 'Y') {
-            destroy_bitmap(page);
+            jeuriviere();
+            allegro_message("Au tour de %s de jouer",joueur[2].nom);
             allegro_exit();
-            return 1;
-            } else if (key == 'n' || key == 'N') {
-
+            jeuriviere();
+            show_mouse(screen);
+            blit(vainqueur1, screen, 0, 0, 160, 269, SCREEN_W, SCREEN_H);
+            rest(4000);
+            //joueur 1 vainqueur
+            if ((mouse_b & 1) && (mouse_x > 0) && (mouse_x < 285) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[1].ticket++;
             }
+                //joueur 2 vainquer
+            else if ((mouse_b & 1) && (mouse_x > 285) && (mouse_x < 470) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[2].ticket++;
+            }
+                //egalite
+            else if ((mouse_b & 1) && (mouse_x > 270) && (mouse_x < SCREEN_W) && (mouse_y > 328) && (mouse_y < 525)) {
+                destroy_bitmap(vainqueur1);
+                joueur[1].ticket+=0;
+                joueur[2].ticket+=0;
+            }
+            y1 += 3;
+            im1 = im1_down;
+            y2 += 3;
+            im2 = im2_down;
+            (joueur[1].ticket -=1) && (joueur[2].ticket-=1);
         }
-
 
 ////////////////////////////////
 ////////MOUVEMENT JOUEURS///////
@@ -480,134 +626,76 @@ int main(){
         draw_sprite(page,im2,x2,y2);
         blit(page, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         rest(10);
-    }
-    // SECTION J : FERMETURE MODE GRAPHIQUE
-    destroy_bitmap(page);
-    allegro_exit();
-    return 0;
-} END_OF_MAIN()
-*/
-#include <allegro.h>
-#include <stdio.h>
-#include <string.h>
 
-#define SCREEN_W 768
-#define SCREEN_H 632
-
-void afficher_message_quitter_jeu() {
-    clear_keybuf();  // Effacer le tampon du clavier pour éviter les entrées en double
-
-    // Afficher le message de confirmation
-    allegro_message("Êtes-vous sûr de vouloir quitter le jeu ? ( OUI / NON )\n");
-}
-
-int main(){
-    BITMAP *page = NULL ; // BITMAP de la page (double buffer)
-    BITMAP *im1_down; // p1 face
-    BITMAP *im1_right; // p1 profil droit
-    BITMAP *im1_left; // p1 profil gauche
-    BITMAP *im1_up; // p1 de dos
-
-    srand(time(NULL));
-    allegro_init();
-    install_keyboard();
-    install_mouse();
-
-    set_color_depth(desktop_color_depth());
-    if (set_gfx_mode(GFX_AUTODETECT_WINDOWED,SCREEN_W,SCREEN_H,0,0)!=0)
-    {
-        allegro_message("prb gfx mode");
-        allegro_exit();
-        exit(EXIT_FAILURE);
-    }
-
-    // Charger un fond
-    BITMAP *carte = load_bitmap("cartedujeu_negate.bmp", NULL);
-    if (!carte) {
-        allegro_message("prb chargement image");
-        allegro_exit();
-        exit(EXIT_FAILURE);
-    }
-
-    // CREATION DU BUFFER D'AFFICHAGE à la taille de l'écran
-    page = create_bitmap(SCREEN_W,SCREEN_H);
-    clear_bitmap(page);
-
-    im1_down = load_bitmap("player10.bmp", NULL);
-    if (!im1_down) {
-        allegro_message("impossible de charger l'image1");
-        return 1;
-    }
-    im1_right = load_bitmap("player11.bmp", NULL);
-    if (!im1_right) {
-        allegro_message("impossible de charger l'image2");
-        return 1;
-    }
-    im1_left = load_bitmap("player12.bmp", NULL);
-    if (!im1_left) {
-        allegro_message("impossible de charger l'image3");
-        return 1;
-    }
-    im1_up = load_bitmap("player13.bmp", NULL);
-    if (!im1_up) {
-        allegro_message("impossible de charger l'image4");
-        return 1;
-    }
-
-
-    float x1 = 165, y1 = 424; // position initiale du perso1
-    float x2 = 140, y2 = 425; // position initiale du perso2
-
-    int maison_w = 15;
-    int maison_h = 15;
-    int spawn_x = 150;
-    int spawn_y = 484;
-
-    BITMAP *im1 = im1_down; // image initiale du poisson
-    draw_sprite(page, im1, x1, y1);
-
-    while (!key[KEY_ESC]) {
-        // Effacer le buffer d'affichage
-        clear_bitmap(page);
-        //blit(carte,page,0,0,0,0,SCREEN_W, SCREEN_H);
-        //blit(page, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        // rectfill(page, x, y, x+im->w, y+im->h, makecol(255,255,255));
-
-        //MOUVEMENT PERSO 1
-        if (key[KEY_LEFT] && x1 > 0) {
-            x1 -= 1.5;
-            im1 = im1_right;
-        }
-        if (key[KEY_RIGHT] && x1 + im1->w < SCREEN_W) {
-            x1 += 1.5;
-            im1 = im1_left;
-        }
-        if (key[KEY_UP] && y1 > 0) {
-            y1 -= 1.5;
-            im1 = im1_up;
-        }
-        if (key[KEY_DOWN] && y1 + im1->h < SCREEN_H) {
-            y1 += 1.5;
-            im1 = im1_down;
+        //TICKETS
+        bool displayTickets = false;
+        if (key[KEY_TAB]) {
+            displayTickets = true;
         }
 
-        blit(carte, page, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        draw_sprite(page, im1, x1, y1);
-        blit(page, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        rest(10);
-        if (x1 >= spawn_x && x1 <= spawn_x + maison_w && y1 >= spawn_y && y1 <= spawn_y + maison_h) {
-            afficher_message_quitter_jeu();
+        if (displayTickets) {
+            BITMAP *popup2 = load_bitmap("tickets_negate.bmp", NULL);
+            if (!popup2) {
+                allegro_message("prb chargement image tickets");
+                allegro_exit();
+                exit(EXIT_FAILURE);
+            }
+            blit(popup2, screen, 0, 0, 150, 269, SCREEN_W, SCREEN_H);
+            textprintf_ex(screen, font, 180, 300, makecol(255, 255, 255), -1, "%s",joueur[1].nom);
+            textprintf_ex(screen, font, 180, 360, makecol(255, 255, 255), -1, "%s",joueur[2].nom);
+            textprintf_ex(screen, font, 340, 300, makecol(255, 255, 255), -1, "Tickets restants : %d", joueur[1].ticket);
+            textprintf_ex(screen, font, 340, 360, makecol(255, 255, 255), -1, "Tickets restants : %d", joueur[2].ticket);
 
-            // Attendre la réponse de l'utilisateur
-            char reponse;
-            scanf(" %c", &reponse);
+            while (key[KEY_TAB]) {
+                rest(10);
+            }
+            destroy_bitmap(popup2);
+            displayTickets = false;
+        }
+        if ((joueur[1].ticket <= 0)||(joueur[2].ticket <= 0)){
+            // Afficher le message de défaite
+            if (joueur[1].ticket <= 0) {
+                allegro_message("%s n'a plus de ticket", joueur[1].nom);
+                allegro_message("Bravo %s vous avez gagné !",joueur[2].nom);
+            } else {
+                allegro_message("%s n'a plus de ticket", joueur[2].nom);
+                allegro_message("Bravo %s vous avez gagné !", joueur[1].nom);
+            }
+            // Fermer le jeu
+            destroy_bitmap(page);
+            allegro_exit();
+            return 0;
+        }
 
-            // Vérifier la réponse de l'utilisateur
-            if (reponse == 'O' || reponse == 'o') {
-                // Quitter le jeu
+        if ((x1 >= spawn_x && x1 <= spawn_x + maison_w && y1 >= spawn_y && y1 <= spawn_y + maison_h)
+        ||(x2 >= spawn_x && x2 <= spawn_x + maison_w && y2 >= spawn_y && y2 <= spawn_y + maison_h)){
+            show_mouse(screen);
+
+            // Afficher le message de confirmation
+            BITMAP *popup = load_bitmap("quitterlejeu.bmp", NULL);
+            if (!popup) {
+                allegro_message("prb chargement image quitte");
+                allegro_exit();
+                exit(EXIT_FAILURE);
+            }
+
+            blit(popup, screen, 0, 0, 160, 269, SCREEN_W, SCREEN_H);
+            rest(300);
+
+            //COORDONNEES OUI
+            if ((mouse_b & 1) && (mouse_x > 0) && (mouse_x < SCREEN_W/2) && (mouse_y > 0) && (mouse_y < SCREEN_H)) {
                 destroy_bitmap(page);
                 allegro_exit();
                 return 0;
+            }
+
+            //COORDONNEES NON
+            else if ((mouse_b & 1) && (mouse_x > SCREEN_W/2) && (mouse_x < SCREEN_W) && (mouse_y > 0) && (mouse_y < SCREEN_H)) {
+                destroy_bitmap(popup);
+                y1 -= 3;
+                im1 = im1_up;
+                y2 -= 3;
+                im2 = im2_up;
             }
         }
     }
@@ -615,6 +703,4 @@ int main(){
     destroy_bitmap(page);
     allegro_exit();
     return 0;
-} END_OF_MAIN();
-
-
+} END_OF_MAIN()
